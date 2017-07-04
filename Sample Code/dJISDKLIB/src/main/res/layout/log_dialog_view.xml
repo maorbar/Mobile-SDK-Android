@@ -36,7 +36,8 @@
         android:scrollbarStyle="outsideOverlay"
         android:scrollbarThumbVertical="@android:color/holo_red_light"
         android:scrollbarTrackVertical="@color/midware_white_half"
-        android:scrollbars="vertical" >
+        android:scrollbars="vertical"
+        android:fillViewport="false">
 
         <dji.log.LogView
             android:id="@+id/log_dlg_content"

@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -15,11 +16,17 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dji.sdk.sample.R;
 
 import java.util.Stack;
+
+import dji.sdk.Battery.DJIBattery;
+import dji.sdk.SDKManager.DJISDKManager;
 import dji.sdk.base.DJIBaseProduct;
 import dji.thirdparty.eventbus.EventBus;
 
@@ -81,6 +88,39 @@ public class MainActivity extends AppCompatActivity {
         IntentFilter filter = new IntentFilter();
         filter.addAction(DJISampleApplication.FLAG_CONNECTION_CHANGE);
         registerReceiver(mReceiver, filter);
+/*
+        setContentView(R.layout.testscreen);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        try {
+            DJISampleApplication.getProductInstance().getBattery().setBatteryStateUpdateCallback(
+                    new DJIBattery.DJIBatteryStateUpdateCallback() {
+                        @Override
+                        public void onResult(DJIBattery.DJIBatteryState djiBatteryState) {
+                            TextView locationTextElement = (TextView) findViewById(R.id.locationText);
+                            locationTextElement.setText(djiBatteryState.getBatteryEnergyRemainingPercent());
+                        }
+                    }
+            );
+        } catch (Exception exception) {
+            TextView locationTextElement = (TextView) findViewById(R.id.locationText);
+            locationTextElement.setText("ERROR");
+        }
+
+        ImageButton imageButtonTest = (ImageButton) findViewById(R.id.doSomethingButton);
+
+        imageButtonTest.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View arg0) {
+                Toast.makeText(MainActivity.this,"ImageButton is clicked!",Toast.LENGTH_SHORT).show();
+                ImageView img = (ImageView) findViewById(R.id.gpsIcon);
+                //img.setImageDrawable(R.drawable.);
+            }
+        });
+*/
+
+
 
     }
 
@@ -157,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void refreshTitle() {
+        Toast.makeText(this, DJISDKManager.getInstance().getSDKVersion(), Toast.LENGTH_SHORT).show();
         if(mStack.size() > 1) {
             SetViewWrapper wrapper = mStack.peek();
             mTitleTextView.setText(wrapper.getTitleId());
